@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  api:
+    environment:
+      - Urls=http://*:5051
+    image: samln/direct-yt:api
+    ports:
+      - "5051:5051"
+      
+
+  app:
+    image: samln/direct-yt:frontend
+    environment:
+      - VITE_API_URL=http://localhost:5051
+      - VITE_HOST_PORT=80
+    depends_on:
+      - api
+    ports:
+      - "80:80"
